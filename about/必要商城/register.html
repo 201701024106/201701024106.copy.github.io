@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.min.js"></script>
+    <script src="./layui-v2.6.8/layui/layui.js"></script>
+    <link rel="stylesheet" href="./layui-v2.6.8/layui/css/layui.css">
+    <style>
+         html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: url('http://caiwu.zhiyou888.com/img/background.jpg') no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 500px;
+            height: 600px;
+            border-radius: 20px;
+            background-color: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 50px;
+            justify-content: center;
+            align-items: space-around;
+        }
+
+        .logo {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .layui-form {
+            width: 70%;
+            height: 300px;
+        }
+
+        .layui-form-label {
+            width: 100px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        p {
+            text-align: right;
+        }
+
+        .input {
+            height: 60px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
+        .input input {
+            height: 60px;
+            border: none;
+            background-color: transparent;
+        }
+
+        .layui-input-block {
+            margin-left: 0px;
+            border: none;
+        }
+
+        .layui-btn {
+            width: 100%;
+            height: 60px;
+            border-radius: 20px;
+        }
+
+        .btnmargin {
+            margin: 0;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="logo">
+            <img src="http://jiaowu.zhiyou888.com/img/logo.png " alt="">
+        </div>
+        <form class="layui-form">
+            <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+            <div class="layui-form-item input">
+                <div class="layui-input-block">
+                    <input type="text" placeholder="请输入用户名" name="userName" required autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item input">
+                <div class="layui-input-block">
+                    <input type="text" placeholder="请输入密码" name="password" required autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block btnmargin">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                </div>
+            </div>
+            <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+        </form>
+    </div>
+
+</body>
+<script>
+    //Demo
+      //Demo
+      layui.use("form", function () {
+        var form = layui.form;
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            console.log(data.field);
+            
+            $.get('http://39.103.177.112:9527/api/register',data.field,function(msg){
+                console.log(msg);
+                if(msg.code==1){
+                    alert('注册成功')
+                    location.href='./login.html'
+                }
+                else{
+                    alert('该账户已被注册')
+                }
+            }) 
+            return false;
+        });
+      });
+</script>
+
+</html>

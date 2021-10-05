@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.min.js"></script>
+    <script src="./layui-v2.6.8/layui/layui.js"></script>
+    <link rel="stylesheet" href="./layui-v2.6.8/layui/css/layui.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul,
+        ol {
+            list-style: none;
+        }
+
+        .nav {
+            width: 100%;
+        }
+
+        .fix {
+            width: 1080px;
+            height: 145px;
+            background-color: red;
+            margin: 0 auto;
+        }
+
+        .nav-top {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+        }
+
+        .nav-left {
+            width: 239px;
+            height: 98px;
+            background-color: green;
+            padding-top: 28px;
+        }
+
+        .nav-left img {
+            width: 130px;
+        }
+
+        .nav-right {
+            width: 464px;
+            height: 98px;
+            font-size: 0;
+            padding-top: 28px;
+        }
+
+        .nav-right input {
+            width: 412px;
+            height: 40px;
+            padding-left: 5px;
+            outline: none;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            background-color: transparent;
+        }
+
+        .nav-right input::placeholder {
+            color: #ccc;
+        }
+
+        .nav-right span {
+            vertical-align: top;
+        }
+
+        #submit {
+            width: 40px;
+            height: 40px;
+            /* background-color: red; */
+            border: 1px solid #ccc;
+            vertical-align: top;
+            background-color: red;
+            display: inline-block;
+        }
+
+        /* 首页 登录页 注册页选择 */
+        .fix .nav-bottom {
+            width: 300px;
+            height: 45px;
+            line-height: 45px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 轮播 */
+        .page {
+            width: 1080px;
+            margin: 0 auto;
+            height: 1000px;
+            background-color: yellow;
+        }
+
+        .page .banner {
+            height: 360px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 10px;
+            background-color: yellow;
+            /* display: flex; */
+            background-size: contain;
+            background-image: url('http://static1.biyao.com/pc/www/img/new_master/banner2.png?v=biyao_ded5987');
+        }
+
+        /* 轮播 */
+
+        .bannernav-list {
+            height: 360px;
+            width: 200px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: rgb(51, 51, 51);
+        }
+
+        .bannernav-list>p {
+            margin: 5px;
+        }
+
+        /* 保证平台 */
+        .platfor {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        /* 商品排行 */
+        .hortsale {
+            background-color: red;
+            margin-top: 20px;
+        }
+
+        .hortsale>h2 {
+            text-align: center;
+        }
+
+        #goodeslist {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #goodeslist>.goods {
+            margin-top: 20px;
+            width: 530px;
+            height: 374px;
+            background-color: green;
+        }
+
+        #goodeslist>.goods>img {
+            width: 100%;
+        }
+
+        .footer {
+            width: 100%;
+            margin-top: 8px;
+            background: #fff;
+            box-shadow: 0 -2px 4px rgb(0 0 0 / 5%);
+        }
+
+        .footer>div {
+            width: 1080px;
+            margin: 0 auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+
+        html .clearfix {
+            display: block;
+        }
+
+        .footer-detail>li {
+            display: inline-block;
+            width: 378px;
+            height: 120px;
+            vertical-align: top;
+        }
+
+        .footer-detail>li:first-child {
+            border-right: 2px solid #bbb;
+        }
+
+        .footer-detail>li div {
+            display: inline-block;
+            float: left;
+            width: 120px;
+            height: 120px;
+            margin-left: 50px;
+        }
+
+        .gzh {
+            background: rgba(0, 0, 0, 0) url(http://static3.biyao.com/pc/www/img/footer/public_code.png?v=biyao_4651e82) no-repeat scroll center center / 100% 100%;
+        }
+
+        .app {
+            background: rgba(0, 0, 0, 0) url(http://static4.biyao.com/pc/www/img/footer/app_code.png?v=biyao_975b48e) no-repeat scroll center center / 100% 100%;
+        }
+
+        .footer-detail>li ul li:first-child {
+            color: #4A4A4A;
+        }
+
+        .footer-detail>li ul li {
+            line-height: 24px;
+            font-family: PingFangSC-Medium;
+            font-size: 14px;
+            color: #bbb;
+            letter-spacing: 0;
+        }
+
+        .footer-detail>li ul {
+            display: inline-block;
+            float: left;
+            margin-left: 15px;
+            text-align: left;
+        }
+
+        .footer-info {
+            margin-top: 60px;
+            padding-bottom: 10px;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .footer-info p {
+            margin-bottom: 10px;
+        }
+
+        .footer-info a {
+            color: gray;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav">
+        <!-- 导航栏 -->
+        <div class="fix">
+            <div class="nav-top">
+                <div class="nav-left">
+                    <a href="http://www.biyao.com/home/index.html">
+                        <img src="http://static2.biyao.com/pc/common/img/master/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="nav-right">
+                    <input id="input" type="text" placeholder="请输入要搜索的商品">
+                    <p id="submit">搜索</p>
+                </div>
+            </div>
+            <ul class="nav-bottom">
+                <li>首页</li>
+                <li id="login">登录</li>
+                <li id="register">注册</li>
+                <li>购物车</li>
+            </ul>
+        </div>
+        <!-- 导航栏 -->
+        <!-- 轮播图 -->
+        <div class="page">
+            <div class="banner">
+                <div class="bannernav-list">
+                </div>
+            </div>
+            <div class="platfor">
+                <dl>
+                    大牌品牌
+                </dl>
+                <dl>
+                    工厂价格
+                </dl>
+                <dl>
+                    分期支付
+                </dl>
+                <dl>
+                    顺丰包邮
+                </dl>
+                <dl>
+                    无忧退款
+                </dl>
+            </div>
+            <div class="hortsale">
+                <h2>热销排行榜</h2>
+                <div id="goodeslist">
+                </div>
+            </div>
+            <ul class="right">
+                <li><img src="./img/envelopes_suspension_currency.png" alt=""></li>
+                <li>
+                    <img src="./img/xcx-code.png" alt="">
+                </li>
+            </ul>
+            <!-- 返回顶部 -->
+            <div class="right-top">
+
+            </div>
+            <div class="footer">
+                <div class="footer-main clearfix">
+                    <ul class="footer-detail clearfix">
+                        <li>
+                            <div class="gzh"></div>
+                            <ul class="clearfix">
+                                <li>扫码关注必要微信公众号</li>
+                                <li>关注必要微信公众号</li>
+                                <li>实时了解必要平台政策</li>
+                                <li>人才招聘信息</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="app"></div>
+                            <ul class="clearfix">
+                                <li>扫码下载必要APP</li>
+                                <li>随时随地掌握上新信息</li>
+                                <li>浏览、购买更便捷</li>
+                                <li>体验更多黑科技</li>
+                                <li>与必要面对面沟通</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <p>
+                        <a href="http://static.biyao.com/pc/www/html/xieyi.html" target="_blank">《用户服务协议》</a>
+                        <span>|</span>
+                        <a href="http://static1.biyao.com/pc/www/html/yinsi.html" target="_blank">《隐私政策》</a>
+                        <span>|</span>
+                        <a href="http://static2.biyao.com/pc/www/html/zhishichanquan.html" target="_blank">知识产权</a>
+                        <span>|</span>
+                        <a href="http://www.biyao.com/promulgate/promulgate.html" target="_blank">平台公示</a>
+                        <span>|</span>
+                        <a href="http://www.biyao.com/ipr/institution.html" target="_blank" id="biyaoRules">必要规则</a>
+                    </p>
+                    <p>
+                        <span id="year"></span>
+                        <script>
+                            document.getElementById('year').innerHTML = 'Copyright © ' + new Date().getFullYear() + ', BIYAO.COM';
+                        </script>
+                        <span>珠海必要科技有限公司</span>
+                        <span>
+                            <a href="http://static3.biyao.com/pc/www/img/footer/ww.png" target="_blank"><img width="14"
+                                    height="14"
+                                    src="http://static4.biyao.com/pc/www/img/footer/whjy.png?v=biyao_f5f3976"></a>
+                            粤网文〔2018〕0969-419号
+                        </span>
+                        <span>
+                            <img width="14" height="14"
+                                src="http://static.biyao.com/pc/www/img/footer/ghs.png?v=biyao_d0289dc">
+                            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44049102496139"
+                                target="_blank">粤公网安备44049102496139号</a>
+                        </span>
+                        <span>
+                            <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备13088531号 </a>
+                        </span>
+                    </p>
+                    <p>
+                        <span><a href="http://static1.biyao.com/pc/www/img/footer/by_licence.png"
+                                target="_blank">营业执照</a></span>
+                        <span><a href="/home/businesslicense" target="_blank">增值电信业务经营许可证 粤B2-20170518</a></span>
+                        <span><a href="http://static2.biyao.com/pc/www/img/footer/by_drugs.png"
+                                target="_blank">互联网药品信息服务资格证书</a></span>
+                        <span><a href="http://static3.biyao.com/pc/www/img/footer/ylqx.png"
+                                target="_blank">医疗器械网络交易服务第三方平台备案凭证</a></span>
+                        <span><a href="http://static4.biyao.com/pc/www/img/footer/by_food.png"
+                                target="_blank">食品经营许可证</a></span>
+                    </p>
+                    <p>
+                        <span><a href="javascript:;">（粤）网械平台备字（2018）第00007号</a></span>
+                        <span><a href="http://static.biyao.com/pc/www/img/footer/publish.png"
+                                target="_blank">出版物发行业务提供服务的网络交易平台备案</a></span>
+                        <span><a href="http://static1.biyao.com/pc/www/img/footer/wlfood.png"
+                                target="_blank">网络食品交易第三方备案凭证
+                                备案号GDWS10009</a></span>
+                    </p>
+                    <p><span>公司地址：珠海市唐家湾镇哈工大路1号1栋E301-15</span><span>公司电话：0756-3635580</span></p>
+                    <p>必要商城提示您，产品“由某制造商出品”仅为陈述制造商既往生产经历，并不意味着相应产品与特定品牌产品相同或近似。</p>
+                </div>
+            </div>
+        </div>
+        <div class="page"></div>
+        <div class="page"></div>
+        <div class="page" id="mycar">
+            <table id="demo" lay-filter="test"></table>
+            <!-- <table id="demo" lay-filter="test"></table> -->
+        </div>
+    </div>
+
+    <!-- 右侧栏 -->
+
+</body>
+<script>
+    $('#login').click(function () {
+        location.href = './login.html'
+    })
+    $('#register').click(function () {
+        location.href = './register.html'
+    })
+    var nowpage = 1;
+    // 分页
+
+    $('.nav-bottom>li').each(function (index) {
+        $('.page').eq(index).css({
+            'display': 'none'
+        })
+        $('.page').eq(0).css({
+            'display': 'block'
+        })
+        $('.nav-bottom>li').eq(index).click(function () {
+            console.log(index);
+            $('.page').css({
+                'display': 'none'
+            })
+            $('.page').eq(index).css({
+                'display': 'block'
+            })
+        })
+
+    })
+
+    $('.nav-bottom>li').eq(3).click(function () {
+        reload()
+    })
+    // 重新加载列表
+    function reload() {
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            , url: `http://39.103.177.112:9527/api/shopList?token=${$.cookie('token')}`
+            , cols: [[ //标题栏
+                , { field: 'title', title: '商品名' }
+                , { field: 'priceStr', title: '单价' }
+                , { field: 'count', title: '数量' }
+            ]]
+            ,parseData: function(res){ //res 即为原始返回的数据
+                 console.log(res)
+                 return {
+                "code": 0, //解析接口状态
+                // "msg": res.message, //解析提示文本
+                "count": res.length, //解析数据长度
+                "data": res
+                };
+               
+            }
+            
+            //,…… //其他参数
+        });
+        /*
+                $('#table')[0].innerHTML=`<tr>
+                            <td>商品名</td>
+                            <td>单价</td>
+                            <td>数量</td>
+                            <td>总价</td>
+                            <td>操作</td>
+                        </tr>`;
+                $.get(`http://39.103.177.112:9527/api/shopList?token=${$.cookie('token')}`,function(data){
+                    console.log(data);
+                    data.forEach(item=>{
+                        console.log(item.Id);
+                        $('#table')[0].innerHTML+=`
+                        <tr>
+                                <td>${item.title}</td>
+                                <td>${item.priceStr}</td>
+                                <td>${item.count}</td>
+                                <td>${item.count*item.priceStr}</td>
+                                <td goodid =${item.Id}><button class='remove'>减少</button><button class='del'>删除</button></td>
+                        </tr>`
+                            $('#table>tr').each(function(index){
+                                console.log($(`#table>tr:nth-child(${index+1})`));
+                                $(`#table>tr:nth-child(${index+1}) .remove`).click(function(){
+                                    var tr =$(this).parent().attr('goodid');
+                                    removecount(tr)
+                                })
+                                $(`#table>tr:nth-child(${index+1}) .del`).click(function(){
+                                    var tr =$(this).parent().attr('goodid');
+                                    delcount(tr)
+                                })
+                            })
+                    })
+                })
+                */
+    }
+    // 减少购物车商品数量
+    function removecount(tr) {
+        console.log(tr, $.cookie('token'));
+        $.get(`http://39.103.177.112:9527/api/remove?goodId=${tr}&token=${$.cookie('token')}`, function (msg) {
+            console.log(msg);
+            reload()
+        })
+    }
+    // 删除购物车商品
+    function delcount(tr) {
+        console.log(tr, $.cookie('token'));
+        $.get(`http://39.103.177.112:9527/api/del?goodId=${tr}&token=${$.cookie('token')}`, function (msg) {
+            console.log(msg);
+            reload()
+        })
+    }
+    // 获取一级分类
+    $.get('http://39.103.177.112:9527/api/getTypeone', function (data) {
+        data.forEach((ele, index) => {
+            $('.bannernav-list').append(`<p>${ele}</p>`)
+        });
+    })
+    // 商品详情
+    function get(nowpage) {
+        $.get(`http://39.103.177.112:9527/api/hotList?page=${nowpage}`, function (data) {
+            // console.log(data);
+            data.forEach(function (item) {
+                var nice = JSON.parse(item.labels);
+                // var itemobj= JSON.parse(item.labels);
+                $('#goodeslist')[0].innerHTML += `
+                    <div class="goods" goodsid=${item.Id}>
+                        <img src=${item.imageUrl}></img>
+                        <p>&yen;${item.priceStr}
+                            <span style='color:${nice[0].textColor}; background-color:${nice[0].roundColor};'>${nice[0].content}</span>
+                            <span style='color: red;border:1px solid red;'>一起拼</span><p>
+                            <p style='font-size: 12px;line-height: 18px;color: #BF9E6B;margin-top: 6px;'>${item.supplier}<span><p>
+                            <p style='font-size: 14px;color: #4A4A4A;line-height: 20px;margin-top: 8px;'>${item.supplier}<span><p>
+                    </div>`
+            })
+            getchenggong()
+        })
+    }
+    get(nowpage)
+    function getchenggong() {
+        $('#goodeslist>.goods').click(function () {
+            console.log($(this).attr('goodsid'));
+            console.log($.cookie('token'));
+
+            var r = confirm("加入购物车？");
+            if (r == true) {
+                $.get(`http://39.103.177.112:9527/api/add?goodId=${$(this).attr('goodsid')}&token=${$.cookie('token')}`)
+                console.log('成功加入购物车');
+            }
+            else {
+                console.log('取消加入购物车');
+            }
+        })
+    }
+    var getflag = true;
+    // 触底加载
+    window.onscroll = function () {
+        if (getflag) {
+            if (document.documentElement.scrollTop + document.body.offsetHeight + 200 > document.documentElement.scrollHeight) {
+                nowpage++;
+                console.log(nowpage);
+                if (nowpage < 7) {
+                    get(nowpage)
+                }
+                else {
+                    getflag = false;
+                }
+            }
+        }
+
+    }
+    // 搜索商品
+    $('#submit').click(function () {
+        var key = $('#input').val()
+        console.log(key);
+        $.get(`http://39.103.177.112:9527/api/search?word=${key}`, function (data) {
+            console.log(data);
+        })
+    })
+
+
+</script>
+
+</html>
